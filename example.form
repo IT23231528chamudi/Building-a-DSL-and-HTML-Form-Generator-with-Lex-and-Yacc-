@@ -1,0 +1,40 @@
+  form Registration {
+  meta author = "Sashanka";
+
+  section User_Details {
+    field Full_Name: text required;
+    field NIC: text required; 
+    field Age: number required min=18 max=99;
+    field Gender: radio ["Male", "Female"] required; 
+    field Birthdate: date required;
+    field Degree_Program: dropdown ["Computer Science", "Software Engineering", "Information Systems", "Cyber Security"] required;
+  }
+ 
+  section Contact_Information {
+    field User_email: email required;
+    field Mobile_Number: text required;
+    field Current_Address: textarea;
+  }
+                  
+  section Account_Details {
+    field User_name: text required;
+    field userpassword: password required;
+    field confirmPassword: password required;
+  }
+
+  section Preferences {
+    field Bio: textarea;
+    field Course_Updates: checkbox default="true" required;
+    field Profile_Picture: file accept=".jpg,.png,.gif" required;
+  }
+
+  validate {
+    if age < 18 {
+      error "You must be at least 18.";
+    }
+    if userpassword != confirmPassword {
+      error "Passwords do not match.";
+    }
+  }
+}
+
