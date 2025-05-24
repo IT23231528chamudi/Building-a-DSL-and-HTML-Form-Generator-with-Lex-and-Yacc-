@@ -1,0 +1,165 @@
+  <!DOCTYPE html>
+  <html>
+  <head>
+  <meta charset="UTF-8">
+  <title>Registration Form</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color:rgb(230, 249, 247);
+    }
+    .form-box {
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 25px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      background-color: #f0f2f5;
+      max-width: 600px;
+      margin: 40px auto;
+    }
+     fieldset {
+      margin-bottom: 20px;
+      padding: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+      legend {
+      font-weight: bold;
+      padding: 0 10px;
+    }
+      label {
+      display: block;
+      margin-bottom: 15px;
+    }
+      input[type="text"], input[type="email"], input[type="number"],
+      input[type="date"], input[type="password"], select, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+      margin-bottom: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+      input[type="checkbox"], input[type="radio"] {
+      margin-bottom: 10px;
+      align-items: center;
+      transform: scale(1.5);
+    }
+    .form-submit {
+      text-align: center;
+      margin-top: 20px;
+    }
+      input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+      input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+      h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+  <script>
+      function handleSubmit(event) {
+      const form = event.target;
+      let isValid = true;
+      
+      const password = form.userpassword ? form.userpassword.value : '';
+      const confirmPassword = form.confirmPassword ? form.confirmPassword.value : '';
+      if (password && !/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password)) {
+         alert('Password must contain at least 8 characters, including uppercase, lowercase letters and numbers');
+      isValid = false;
+      }
+      if (password !== confirmPassword) {
+         alert('Passwords do not match.');
+         isValid = false;
+     }
+     
+      const nic = form['NIC']?.value || '';
+      if (!/^\d{12}$/.test(nic)) {
+         errors.push('NIC must be exactly 12 digits');
+         isValid = false;
+      }
+      
+      const mob = form['Mobile_Number']?.value || '';
+      if (!/^\d{10}$/.test(mob)) {
+          errors.push('Mobile number must be exactly 10 digits');
+          isValid = false;
+      }
+      
+      if (isValid) {
+          alert('Form submitted successfully!');
+          form.reset();
+       }
+      }
+  </script>
+</head>
+<body>
+  <div class="form-box">
+  <h1>Registration Form</h1>
+  <form name="Registration" action="#" onsubmit="handleSubmit(event)">
+<!-- Meta author = Sashanka -->
+<fieldset>
+<legend>User_Details</legend>
+  <label>Full_Name: <input type="text" name="Full_Name" required></label><br>
+  <label>NIC: <input type="text" name="NIC" required pattern="\d{12}"></label><br>
+    <label>Age: <input type="number" name="Age" min="18" max="99" required></label><br>
+   <div class="radio-group">
+<label>Gender:</label>
+<div class="radio-option">
+  <input type="radio" name="Gender" value="Male" id="Gender_Male">
+  <label for="Gender_Male">Male</label>
+</div>
+<div class="radio-option">
+  <input type="radio" name="Gender" value="Female" id="Gender_Female">
+  <label for="Gender_Female">Female</label>
+</div>
+  <input type="radio" name="Gender" style="display:none" tabindex="-1" required>
+  </div><br>
+    <label>Birthdate: <input type="date" name="Birthdate" required></label><br>
+    <label>Degree_Program:      <select name="Degree_Program">
+    <option value="" disabled selected hidden>Select an option</option>
+  <option value="Computer Science">Computer Science</option>
+   <option value="Software Engineering">Software Engineering</option>
+   <option value="Information Systems">Information Systems</option>
+   <option value="Cyber Security">Cyber Security</option>
+    </select></label><br>
+</fieldset>
+<fieldset>
+<legend>Contact_Information</legend>
+    <label>User_email: <input type="email" name="User_email" required></label><br>
+  <label>Mobile_Number: <input type="text" name="Mobile_Number" required pattern="\d{10}"></label><br>
+  <label>Current_Address: <textarea name="Current_Address" rows="5" cols="40"></textarea></label><br>
+</fieldset>
+<fieldset>
+<legend>Account_Details</legend>
+  <label>User_name: <input type="text" name="User_name" required></label><br>
+    <label>userpassword: <input type="password" name="userpassword" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}" title="Must contain at least 8 characters, including uppercase, lowercase letters and numbers"></label><br>
+    <label>confirmPassword: <input type="password" name="confirmPassword" required pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}" title="Must contain at least 8 characters, including uppercase, lowercase letters and numbers"></label><br>
+</fieldset>
+<fieldset>
+<legend>Preferences</legend>
+  <label>Bio: <textarea name="Bio" rows="5" cols="40"></textarea></label><br>
+  <div class="checkbox-option">
+  <input type="checkbox" name="Course_Updates">
+  <label>Course_Updates</label>
+   </div><br>
+    <label>Profile_Picture: <input type="file" name="Profile_Picture" required accept=".jpg,.png,.gif"></label><br>
+</fieldset>
+<!-- Validation: if age < 18, error: You must be at least 18. -->
+<!-- Validation: if userpassword != confirmPassword, error: Passwords do not match. -->
+   <div class="form-submit">
+   <input type="submit" value="Submit Form">
+   </div>
+  </form>
+  </div>
+</body>
+</html>
